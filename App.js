@@ -1,16 +1,26 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 import ListItem from './component/Listitem';
+import dummy from './dummy/Dummy.json';
 
 export default function App() {
+  const items = dummy.map((article, index) => {
+    return (
+      <ListItem>
+        imgUrl={article.urlToImage}
+        mainTitle={article.title}
+        subTitle={article.author}
+        key={index}
+      </ListItem>
+    );
+  });
   return (
     <View style={styles.container}>
-      <ListItem
-        imgUrl="https://picsum.photos/100/100"
-        subTitle="yuya news"
-        mainTitle=" Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat."
+      <FlatList
+        data={dummy}
+        renderItem={({ item }) => (
+          <ListItem imgUrl={item.urlToImage} mainTitle={item.title} subTitle={item.author} key={index} />
+        )}
       />
     </View>
   );
